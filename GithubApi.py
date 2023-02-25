@@ -1,11 +1,18 @@
+# Author: Sijie Yu
+# Course: SSW-567A
+
 import requests
 import json
 import unittest
 
 def github_api(userID):
+    # get the whole data from the specific user
     data = requests.get("https://api.github.com/users/%s/repos" % userID)
+
+    # convert it into json
     response = data.json()
 
+    # check invalid user or non repo
     if data.status_code != 200:
         print("User Not Found")
         return False
@@ -14,6 +21,8 @@ def github_api(userID):
         print("Zero Repo")
         return False
 
+    # traversal the whole data, get the repoName by the array index
+    # then get the commit in json by splitting the str to remove the symbol
     for i in range(len(response)):
         repoName = response[i]['name']
         # commits_url = requests.get("https://api.github.com/users/%s/%s" % userID, repoName)
@@ -22,9 +31,16 @@ def github_api(userID):
 
     return True
 
+# testcase
 class TestGithubApi(unittest.TestCase):
     def testGithubApi1(self):
         self.assertEqual(github_api('yclover'), True)
+
+    def testGithubApi2(self):
+        self.assertEqual(github_api('EmanAlOmar'), True)
+
+    def testGithubApi3(self):
+        self.assertEqual(github_api('francescaseverino'), True)
 
 
 
