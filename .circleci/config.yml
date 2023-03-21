@@ -12,6 +12,7 @@ jobs:
       - checkout
       - run: 
           command: |
+            pip install nose
             pip install requests
             pip install pytest
             pytest --junitxml=test-results/junit.xml TestGithubApi.py
