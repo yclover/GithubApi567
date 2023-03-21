@@ -6,7 +6,7 @@ from GithubApi import getCommits
 
 from unittest.mock import Mock, patch
 from nose.tools import assert_is_not_none
-
+import unittest
 
 @patch("GithubApi.requests.get")
 def test_getting_GithubApi(mock_get):
